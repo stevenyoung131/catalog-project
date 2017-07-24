@@ -1,10 +1,17 @@
-from flask import request, g, redirect, url_for
+from flask import request, g, redirect, url_for, flash
 from flask import Flask, jsonify, render_template
+from flask import session as login_session
 from db_setup import Base, User, Category, CatalogItem
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 import json
+import random
+import string
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import httplib2
+import requests
 
 
 engine = create_engine('sqlite:///catalog.db')
