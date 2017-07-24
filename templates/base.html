@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/bootstrap-theme.min.css')}}" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <title>Item Catalog</title>    
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row header">
+        <div class="col-xs-6 title">
+          <h1> Catalog App </h1>
+        </div>
+        <div class="col-xs-6 login">
+          <a href="" class="btn-primary btn-lg align-bottom">Login</a>
+        </div>
+      </div>
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </body>
+</html>

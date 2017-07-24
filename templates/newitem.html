@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Make a New Item</h2>
+<form method="POST" action="">
+<h2>Name:</h2><input type="text" name="name">
+<h2>Description:</h2><input type="text" name="description">
+<h2>Category:</h2><select name="category">
+					{% for category in categories %}
+						<option value="{{category.id}}">{{category.name}}</option>
+					{% endfor %}
+				  </select>
+</br>
+</br>
+<input type="submit">
+</form>
+{% endblock %}
