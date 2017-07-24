@@ -15,6 +15,7 @@
 	</div>
 	<div class="col-xs-9 item">
 	  <h3>Recent Items</h3>
+	  <h4><a href="{{url_for('newItem')}}">New Item</a></h4>
 	  <ul>
 	  	{% for item in items %}
 	  		<a href="{{url_for('viewItem', item='%s' % item.name)}}">{{item.name}}</a>
