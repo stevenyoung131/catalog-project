@@ -22,9 +22,23 @@
           <a href="" class="btn-primary btn-lg align-bottom">Login</a>
         </div>
       </div>
-      {% block content %}
+      <div class="row main">
+        <div class="col-xs-3 nav">
+          <h2>Categories</h2>
+      <!--    <a href="{{url_for('newCategory')}}">Add Category</a> -->
+          <ul>
+            {% for category in categories %}
+              <a href="{{url_for('viewCategory', category='%s' % category.name)}}">{{category.name}}</a>
+              </br>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-xs-9 item">
+          {% block content %}
 
-      {% endblock %}
+          {% endblock %}
+        </div>
+      </div>
     </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </body>
