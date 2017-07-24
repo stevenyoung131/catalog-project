@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="row main">
@@ -6,22 +6,18 @@
 	  <h2>Categories</h2>
 <!-- 	  <a href="{{url_for('newCategory')}}">Add Category</a> -->
 	  <ul>
-  		{% for category in categories %}
+	  	{% for category in categories %}
 	  		<a href="{{url_for('viewCategory', category='%s' % category.name)}}">{{category.name}}</a>
-	  		</br>
-	  	{% endfor %}
-  	  </ul>
-	</div>
-	<div class="col-xs-9 item">
-	  <h3>Items</h3>
-	  <h4><a href="{{url_for('newItem')}}">New Item</a></h4>
-	  <ul>
-	  	{% for item in items %}
-	  		<a href="{{url_for('viewItem', item='%s' % item.name)}}">{{item.name}}</a>
 	  		</br>
 	  	{% endfor %}
 	  </ul>
 	</div>
+	<div class="col-xs-9 item">
+	  <h1>{{item.name}}</h1>
+	  <p>{{item.description}}</p>
+	  </br>
+	  <a href="{{url_for('editItem', item='%s' % item.name)}}">edit</a>
+	  <a href="{{url_for('deleteItem', item='%s' % item.name)}}">delete</a>
+	</div>
 </div>
-
 {% endblock %}
