@@ -26,6 +26,7 @@ def showCatalog():
 
 @app.route('/catalog/newcategory', methods=['GET', 'POST'])
 def newCategory():
+    categories = session.query(Category).order_by('name').all()
     if request.method == 'POST':
         if request.form['name']:
             newCategory = Category(name=request.form['name'])
@@ -33,7 +34,7 @@ def newCategory():
             session.commit()
             return redirect(url_for('showCatalog'))
     else:
-        return render_template('newcategory.html')
+        return render_template('newcategory.html', categories=categories)
 
 
 @app.route('/catalog/<category>/items')
@@ -50,6 +51,7 @@ def viewCategory(category):
 
 @app.route('/catalog/newitem', methods=['GET', 'POST'])
 def newItem():
+    categories = session.query(Category).order_by('name').all()
     if request.method == 'POST':
         if request.form['name']:
             newItem = CatalogItem(name=request.form['name'],
@@ -66,23 +68,48 @@ def newItem():
 
 @app.route('/catalog/<item>')
 def viewItem(item):
+    categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     category = session.query(Category).filter_by(id=item.category_id).one()
-    return "Page for viewing %s from category %s" % (item.name, category.name)
+    return render_template('viewitem.html',
+                           item=item,
+                           category=category,
+                           categories=categories)
 
 
-@app.route('/catalog/<item>/edit')
+@app.route('/catalog/<item>/edit', methods=['GET', 'POST'])
 def editItem(item):
-    return "Page for editing %s" % item
+    categories = session.query(Category).order_by('name').all()
+    item = session.query(CatalogItem).filter_by(name=item).first()
+    if request.method == 'POST':
+        if request.form['name']:
+            item.name = request.form['name']
+            item.description = request.form['description']
+            category_id = request.form['category']
+            session.add(item)
+            session.commit()
+            return redirect(url_for('viewItem', item=request.form['name']))
+    else:
+        return render_template('edititem.html',
+                               item=item,
+                               categories=categories)
 
 
-@app.route('/catalog/<item>/delete')
+@app.route('/catalog/<item>/delete', methods=['GET', 'POST'])
 def deleteItem(item):
-    return "Page for deleting %s" % item
+    categories = session.query(Category).order_by('name').all()
+    item = session.query(CatalogItem).filter_by(name=item).first()
+    if request.method == 'POST':
+        session.delete(item)
+        session.commit()
+        return redirect(url_for('showCatalog'))
+    else:
+        return render_template('deleteitem.html', item=item)
 
 
 @app.route('/catalog.json')
 def showJSON():
+    categories = session.query(Category).order_by('name').all()
     return "Page for displaying JSON info."
 
 
