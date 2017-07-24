@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Catalog Application"
+APPLICATION_NAME = "Catalog App"
 
 
 @app.route('/login')
@@ -353,6 +353,29 @@ def showJSON():
     return "Page for displaying JSON info."
 
 
+@app.route('/disconnect')
+def disconnect():
+    if 'provider' in login_session:
+        if login_session['provider'] == 'google':
+            gdisconnect()
+            del login_session['gplus_id']
+            del login_session['credentials']
+        if login_session['provider'] == 'facebook':
+            fbdisconnect()
+            del login_session['facebook_id']
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        del login_session['user_id']
+        del login_session['provider']
+        flash("You have successfully been logged out.")
+        return redirect(url_for('showCatalog'))
+    else:
+        flash("You were not logged in")
+        return redirect(url_for('showCatalog'))
+
+
 if __name__ == '__main__':
     app.debug = True
+    app.secret_key = 'i_love_my_wife'
     app.run(host='0.0.0.0', port=5000)
