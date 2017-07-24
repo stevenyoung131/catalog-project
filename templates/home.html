@@ -17,7 +17,7 @@
 	  <h3>Items</h3>
 	  <ul>-
 	  	{% for item in items %}
-	  		<a href="{{url_for('viewItem', category='%s', item='%s' % (item.category, item.name))}}">{{item.name}}</a>
+	  		<a href="{{url_for('viewItem', item='%s' % item.name)}}">{{item.name}}</a>
 	  		</br>
 	  	{% endfor %}
 	  </ul>

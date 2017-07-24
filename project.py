@@ -64,9 +64,11 @@ def newItem():
         return render_template('newitem.html', categories=categories)
 
 
-@app.route('/catalog/<category>/<item>')
-def viewItem(category, item):
-    return "Page for viewing %s from category %s" % (item, category)
+@app.route('/catalog/<item>')
+def viewItem(item):
+    item = session.query(CatalogItem).filter_by(name=item).first()
+    category = session.query(Category).filter_by(id=item.category_id).one()
+    return "Page for viewing %s from category %s" % (item.name, category.name)
 
 
 @app.route('/catalog/<item>/edit')
