@@ -1,5 +1,5 @@
 from flask import request, g, redirect, url_for, flash
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, make_response
 from flask import session as login_session
 from db_setup import Base, User, Category, CatalogItem
 from sqlalchemy.ext.declarative import declarative_base
@@ -261,7 +261,12 @@ def gdisconnect():
 def showCatalog():
     categories = session.query(Category).order_by('name').all()
     items = session.query(CatalogItem).order_by('id').limit(5)
-    return render_template('home.html', categories=categories, items=items)
+    if 'username' not in login_session:
+        return render_template('publichome.html',
+                               categories=categories,
+                               items=items)
+    else:
+        return render_template('home.html', categories=categories, items=items)
 
 
 @app.route('/catalog/newcategory', methods=['GET', 'POST'])
