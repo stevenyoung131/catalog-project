@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row main">
+	<div class="col-xs-3 nav">
+	  <h2>Categories</h2>
+<!-- 	  <a href="{{url_for('newCategory')}}">Add Category</a> -->
+	  <ul>
+	  	{% for category in categories %}
+	  		<a href="{{url_for('viewCategory', category='%s' % category.name)}}">{{category.name}}</a>
+	  		</br>
+	  	{% endfor %}
+	  </ul>
+	</div>
+	<div class="col-xs-9 item">
+	  <h1>{{item.name}}</h1>
+	  <p>{{item.description}}</p>
+	  </br>
+	</div>
+</div>
+{% endblock %}
