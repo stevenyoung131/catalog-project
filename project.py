@@ -298,24 +298,31 @@ def viewCategory(category):
     return render_template('viewcategory.html',
                            category=currentCat,
                            items=items,
-                           categories=categories)
+                           categories=categories,
+                           login_session=login_session)
 
 
 @app.route('/catalog/newitem', methods=['GET', 'POST'])
 def newItem():
+    if 'username' not in login_session:
+        return redirect('/login')
     categories = session.query(Category).order_by('name').all()
     if request.method == 'POST':
         if request.form['name']:
             newItem = CatalogItem(name=request.form['name'],
                                   description=request.form['description'],
                                   category_id=request.form['category'],
+                                  user_id=login_session['user_id']
                                   )
             session.add(newItem)
             session.commit()
+            flash("Successfully added %s." % newItem.name)
             return redirect(url_for('showCatalog'))
     else:
         categories = session.query(Category).all()
-        return render_template('newitem.html', categories=categories)
+        return render_template('newitem.html',
+                               categories=categories,
+                               login_session=login_session)
 
 
 @app.route('/catalog/<item>')
@@ -323,16 +330,27 @@ def viewItem(item):
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     category = session.query(Category).filter_by(id=item.category_id).one()
+    if 'username' not in login_session:
+        return render_template('publicviewitem.html',
+                               login_session=login_session,
+                               item=item,
+                               categories=categories,
+                               category=category)
     return render_template('viewitem.html',
                            item=item,
                            category=category,
-                           categories=categories)
+                           categories=categories,
+                           login_session=login_session)
 
 
 @app.route('/catalog/<item>/edit', methods=['GET', 'POST'])
 def editItem(item):
+    if 'username' not in login_session:
+        return redirect('/login')
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
+    if item.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this item. Please create your own item in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         if request.form['name']:
             item.name = request.form['name']
@@ -340,23 +358,32 @@ def editItem(item):
             category_id = request.form['category']
             session.add(item)
             session.commit()
+            flash("Item %s succesfully updated." % item.name)
             return redirect(url_for('viewItem', item=request.form['name']))
     else:
         return render_template('edititem.html',
                                item=item,
-                               categories=categories)
+                               categories=categories,
+                               login_session=login_session)
 
 
 @app.route('/catalog/<item>/delete', methods=['GET', 'POST'])
 def deleteItem(item):
+    if 'username' not in login_session:
+        return redirect('/login')
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
+    if item.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this item. Please create your own item in order to delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(item)
         session.commit()
+        flash("Item %s successfully deleted" % item.name)
         return redirect(url_for('showCatalog'))
     else:
-        return render_template('deleteitem.html', item=item)
+        return render_template('deleteitem.html',
+                               item=item,
+                               login_session=login_session)
 
 
 @app.route('/catalog.json')
