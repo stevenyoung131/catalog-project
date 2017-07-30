@@ -19,7 +19,12 @@
           <a href="{{url_for('showCatalog')}}"><h1> Catalog App </h1></a>
         </div>
         <div class="col-xs-6 login">
-          <a href="{{url_for('showLogin')}}" class="btn-primary btn-lg align-bottom">Login</a>
+          {% if login_session %}
+            <a href="{{url_for('disconnect')}}" class="btn-primary btn-lg align-bottom">Logout</a>
+          {% else %}
+            <a href="{{url_for('showLogin')}}" class="btn-primary btn-lg align-bottom">Login</a>
+          {% endif %}
+          }
         </div>
       </div>
       <div class = 'flash'>

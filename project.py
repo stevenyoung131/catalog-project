@@ -271,7 +271,9 @@ def showCatalog():
                                categories=categories,
                                items=items)
     else:
-        return render_template('home.html', categories=categories, items=items)
+        return render_template('home.html', categories=categories,
+                               items=items,
+                               login_session=login_session)
 
 
 @app.route('/catalog/newcategory', methods=['GET', 'POST'])
@@ -378,7 +380,7 @@ def disconnect():
         del login_session['user_id']
         del login_session['provider']
         flash("You have successfully been logged out.")
-        return redirect(url_for('showCatalog'))
+        return redirect(url_for('showCatalog', login_session=login_session))
     else:
         flash("You were not logged in")
         return redirect(url_for('showCatalog'))
