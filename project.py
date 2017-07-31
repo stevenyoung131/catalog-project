@@ -350,7 +350,11 @@ def editItem(item):
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     if item.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to edit this item. Please create your own item in order to edit.');}</script><body onload='myFunction()''>"
+        return "<script>function myFunction() {alert('You are not authorized\
+                                               to edit this item. Please\
+                                               create your own item in order\
+                                               to edit.');}</script>\
+                                               <body onload='myFunction()''>"
     if request.method == 'POST':
         if request.form['name']:
             item.name = request.form['name']
@@ -374,7 +378,10 @@ def deleteItem(item):
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     if item.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to delete this item. Please create your own item in order to delete.');}</script><body onload='myFunction()''>"
+        script = "function myFunction() {alert('You are not authorized to "
+        script += "delete this item. Please create your own item in order "
+        script += "to delete.');}"
+        return "<script>%s</script><body onload='myFunction()''>" % script
     if request.method == 'POST':
         session.delete(item)
         session.commit()
@@ -388,8 +395,22 @@ def deleteItem(item):
 
 @app.route('/catalog.json')
 def showJSON():
-    categories = session.query(Category).order_by('name').all()
-    return "Page for displaying JSON info."
+    items = session.query(CatalogItem).all()
+    return jsonify(Items=[i.serialize for i in items])
+
+
+@app.route('/catalog/<category>.json')
+def showCategoryJSON(category):
+    category = session.query(Category).filter_by(name=category).one()
+    cat_id = category.id
+    items = session.query(CatalogItem).filter_by(category_id=cat_id).all()
+    return jsonify(Items=[i.serialize for i in items])
+
+
+@app.route('/catalog/<category>/<item>.json')
+def showItemJSON(category, item):
+    item = session.query(CatalogItem).filter_by(name=item).first()
+    return jsonify(Item=item.serialize)
 
 
 @app.route('/disconnect')
