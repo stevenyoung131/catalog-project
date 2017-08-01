@@ -29,6 +29,14 @@ h3 {
 	background-color: #c6c6c6;
 }
 
+.login {
+	padding-top: 10px;
+}
+
+.flash {
+	background-color: #e03416;
+}
+
 @media (max-width: 767px) {
 	h1 {
 		font-size: 2em;

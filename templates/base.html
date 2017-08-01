@@ -27,18 +27,19 @@
           }
         </div>
       </div>
-      <div class = 'flash'>
+      <div class="row flash">
+            <div class="col-xs-12">
           {% with messages = get_flashed_messages() %}
       {% if messages %}
           
         <ul>
         {% for message in messages %}
-            <li> <strong> {{ message }} </strong> </li>
+            <li> <strong class='flash'> {{ message }} </strong> </li>
         {% endfor %}
         </ul>
         {% endif %}
     {% endwith %}
-
+          </div>
 </div>
       {% block content %}
 

@@ -1,4 +1,7 @@
-<head>
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <head> -->
 
   <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
@@ -9,28 +12,28 @@
 <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
 
 
-</head>
+<!-- </head> -->
 
 
-<body>  
+<!-- <body>   -->
 
 
 <!-- GOOGLE PLUS SIGN IN-->
 
           
-          <div id="signInButton">
-          <span class="g-signin"
-            data-scope="openid email"
-            data-clientid="1033511190856-au2ggi5shmcl70th1n4pomp50ps9jdb4.apps.googleusercontent.com"
-            data-redirecturi="postmessage"
-            data-accesstype="offline"
-            data-cookiepolicy="single_host_origin"
-            data-callback="signInCallback"
-            data-approvalprompt="force">
-          </span>
-        </div>
+          <div id="signInButton" class="row main login">
+            <span class="g-signin"
+              data-scope="openid email"
+              data-clientid="1033511190856-au2ggi5shmcl70th1n4pomp50ps9jdb4.apps.googleusercontent.com"
+              data-redirecturi="postmessage"
+              data-accesstype="offline"
+              data-cookiepolicy="single_host_origin"
+              data-callback="signInCallback"
+              data-approvalprompt="force">
+            </span>
+          
 
-<div id="result"></div>
+<div id="result" class="main"></div>
 
 <script>
 function signInCallback(authResult) {
@@ -128,8 +131,11 @@ function signInCallback(authResult) {
 
 
         </button>
+        </div>
 <!--END FACEBOOK SIGN IN -->
 
-  </body>
+<!--   </body>
 
-  </html>
+  </html> -->
+
+{% endblock %}
