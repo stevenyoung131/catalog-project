@@ -9,8 +9,8 @@
 		<button type="submit" class="btn btn-danger btn-small">
 			Yes
 		</button>
-		<button type="button" class="btn btn-secondary btn-small">
-			<a href="{{url_for('viewItem', item='%s' % item.name)}}">Cancel</a>
+		<button type="submit" formmethod="GET" formaction="{{url_for('viewItem', item='%s' % item.name)}}" class="btn btn-secondary btn-small">
+			Cancel
 		</button>
 		</form>
 		</br>
