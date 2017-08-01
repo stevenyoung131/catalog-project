@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Edit Item {{item.name}}</h2>
-<form method="POST" action="">
-<h2>Name:</h2><input type="text" name="name" value="{{item.name}}">
-<h2>Description:</h2><input type="text" name="description" value="{{item.description}}">
-<h2>Category:</h2><select name="category" value="{{item.category_id}}">
-					{% for category in categories %}
-						<option value="{{category.id}}">{{category.name}}</option>
-					{% endfor %}
-				  </select>
-</br>
-</br>
-<input type="submit">
-<a href="{{url_for('viewItem', item='%s' % item.name)}}">Cancel</a>
-</form>
+<div class="row main">
+	<div class="col-xs-12">
+		<h2>Edit Item {{item.name}}</h2>
+		<form method="POST" action="">
+		<h2>Name:</h2><input type="text" name="name" value="{{item.name}}">
+		<h2>Description:</h2><input type="text" size="70" name="description" value="{{item.description}}">
+		<h2>Category:</h2>
+		<select name="category" value="{{item.category_id}}">
+			{% for category in categories %}
+				<option value="{{category.id}}">{{category.name}}</option>
+			{% endfor %}
+		</select>
+		</br>
+		</br>
+		<input type="submit">
+		<a href="{{url_for('viewItem', item='%s' % item.name)}}">Cancel</a>
+		</form>
+		</br>
+	</div>
+</div>
 {% endblock %}
