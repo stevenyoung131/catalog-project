@@ -28,24 +28,22 @@
         </div>
       </div>
       <div class="row flash">
-            <div class="col-xs-12">
+        <div class="col-xs-12">
           {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          
-        <ul>
-        {% for message in messages %}
-            <li> <strong class='flash'> {{ message }} </strong> </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {% endwith %}
-          </div>
-</div>
+            {% if messages %}
+              <ul>
+              {% for message in messages %}
+                <li> <strong class='flash'> {{ message }} </strong> </li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
       {% block content %}
 
       {% endblock %}
-
     </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </body>
 </html>

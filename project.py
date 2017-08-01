@@ -350,11 +350,11 @@ def editItem(item):
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     if item.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized\
-                                               to edit this item. Please\
-                                               create your own item in order\
-                                               to edit.');}</script>\
-                                               <body onload='myFunction()''>"
+        flash("You are not authorized to edit this item.  Please create your\
+            own item in order to edit.")
+        return render_template('viewitem.html',
+                               item=item,
+                               categories=categories)
     if request.method == 'POST':
         if request.form['name']:
             item.name = request.form['name']
@@ -378,10 +378,11 @@ def deleteItem(item):
     categories = session.query(Category).order_by('name').all()
     item = session.query(CatalogItem).filter_by(name=item).first()
     if item.user_id != login_session['user_id']:
-        script = "function myFunction() {alert('You are not authorized to "
-        script += "delete this item. Please create your own item in order "
-        script += "to delete.');}"
-        return "<script>%s</script><body onload='myFunction()''>" % script
+        flash("You are not authorized to delete this item.  Please create your\
+            own item in order to delete.")
+        return render_template('viewitem.html',
+                               item=item,
+                               categories=categories)
     if request.method == 'POST':
         session.delete(item)
         session.commit()
