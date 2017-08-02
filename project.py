@@ -283,14 +283,17 @@ def showCatalog():
 @app.route('/catalog/newcategory', methods=['GET', 'POST'])
 def newCategory():
     categories = session.query(Category).order_by('name').all()
-    if request.method == 'POST':
-        if request.form['name']:
-            newCategory = Category(name=request.form['name'])
-            session.add(newCategory)
-            session.commit()
-            return redirect(url_for('showCatalog'))
+    if 'username' not in login_session:
+        return redirect('/login')
     else:
-        return render_template('newcategory.html', categories=categories)
+        if request.method == 'POST':
+            if request.form['name']:
+                newCategory = Category(name=request.form['name'])
+                session.add(newCategory)
+                session.commit()
+                return redirect(url_for('showCatalog'))
+        else:
+            return render_template('newcategory.html', categories=categories)
 
 
 @app.route('/catalog/<category>/items')
