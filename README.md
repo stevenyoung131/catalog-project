@@ -11,7 +11,8 @@ You will need to set up a vagrant linux virtual machine to run this code.  Instr
 Once the virtual environment is set up and running and the repository is forked into the virual machine's shared folder,
 run project.py to begin serving the web app at localhost:5000.
 (If you prefer to create your own categories and items, simply delete the catalog.db file and run db_setup.py to create an empty
-database.  To enable the link to create new categories, uncomment line 8 of 'home.html')
+database.  To enable the link to create new categories, uncomment line 8 of 'home.html'
+or visit 'localhost:5000/catalog/newcategory' while logged in.)
 
 ## Accessing API endpoints
 
