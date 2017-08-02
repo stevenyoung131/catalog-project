@@ -10,6 +10,14 @@ h3 {
 	color: red;
 }
 
+#edit-button a {
+	color: white;
+}
+
+.item-header {
+	color: #1d1a72;
+}
+
 .header {
 	background-color: #1d1a72;
 }

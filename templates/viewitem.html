@@ -12,11 +12,15 @@
 	  </ul>
 	</div>
 	<div class="col-xs-9 item">
-	  <h1>{{item.name}}</h1>
+	  <h1 class="item-haeder">{{item.name}}</h1>
 	  <p>{{item.description}}</p>
 	  </br>
-	  <a href="{{url_for('editItem', item='%s' % item.name)}}">edit</a>
-	  <a href="{{url_for('deleteItem', item='%s' % item.name)}}">delete</a>
+	  <button id="edit-button" type="button" class="btn btn-primary btn-small">
+	  	<a href="{{url_for('editItem', item='%s' % item.name)}}">Edit</a>
+	  </button>
+	  <button id="edit-button" type="button" class="btn btn-danger btn small">
+	  	<a href="{{url_for('deleteItem', item='%s' % item.name)}}">Delete</a>
+	  </button>
 	</div>
 </div>
 {% endblock %}

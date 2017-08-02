@@ -13,7 +13,7 @@
 	  </ul>
 	</div>
 	<div class="col-xs-9 item">
-	  <h3>Recent Items</h3>
+	  <h3>Recently Created Items</h3>
 	  <ul>
 	  	{% for item in items %}
 	  		<a href="{{url_for('viewItem', item='%s' % item.name)}}">{{item.name}}</a>

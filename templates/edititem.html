@@ -5,18 +5,29 @@
 	<div class="col-xs-12">
 		<h2>Edit Item {{item.name}}</h2>
 		<form method="POST" action="">
-		<h2>Name:</h2><input type="text" name="name" value="{{item.name}}">
-		<h2>Description:</h2><input type="text" size="70" name="description" value="{{item.description}}">
-		<h2>Category:</h2>
-		<select name="category" value="{{item.category_id}}">
-			{% for category in categories %}
-				<option value="{{category.id}}">{{category.name}}</option>
-			{% endfor %}
-		</select>
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input class="form-control" type="text" name="name" value="{{item.name}}">
+		</div>
+		<div class="form-group">
+			<label for="description">Description</label>
+			<input class="form-control" type="text" size="70" name="description" value="{{item.description}}">
+		</div>
+		<div class="form-group">
+			<label for="category">Category</label>
+			<select class="form-control" name="category" value="{{item.category_id}}">
+				{% for category in categories %}
+					<option value="{{category.id}}">{{category.name}}</option>
+				{% endfor %}
+			</select>
 		</br>
 		</br>
-		<input type="submit">
-		<a href="{{url_for('viewItem', item='%s' % item.name)}}">Cancel</a>
+		<button type="submit" class="btn btn-small btn-primary">
+			Submit
+		</button>
+		<button type="submit" formmethod="GET" class="btn btn-small btn-secondary" formaction="{{url_for('viewItem', item='%s' % item.name)}}">
+			Cancel
+		</button>
 		</form>
 		</br>
 	</div>
