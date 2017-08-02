@@ -5,6 +5,7 @@
 <div class="row main">
 	<div class="col-xs-3 nav">
 	  <h2>Categories</h2>
+<!-- 	  <a href="{{url_for('newCategory')}}"><h3>Create Category</h3></a> -->
 	  <ul>
 	  	{% for category in categories %}
 	  		<a href="{{url_for('viewCategory', category='%s' % category.name)}}">{{category.name}}</a>
